@@ -11,8 +11,14 @@ export const pokemonApi = pokeApi.injectEndpoints({
         currentCache.results.push(...newItems.results)
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
+			providesTags: ['PokemonList'],
     }),
+
+		getPokemonDetail: builder.query({
+			query: (id) => `pokemon/${id}`,
+			providesTags: (result, error, id) => [{ type: 'PokemonDetail', id }],
+		}),
   }),
 })
 
-export const { useGetPokemonListQuery } = pokemonApi
+export const { useGetPokemonListQuery, useGetPokemonDetailQuery } = pokemonApi
