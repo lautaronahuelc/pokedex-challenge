@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useGetPokemonListQuery } from './features/pokemon/pokemonApi'
+import PokemonCard from './features/pokemon/PokemonCard'
 
 function App() {
   const [page, setPage] = useState(0)
@@ -35,7 +36,7 @@ function App() {
     <div>
       <ul>
         {data.results.map((pokemon) => (
-          <li key={pokemon.name}>{pokemon.name}</li>
+          <PokemonCard key={pokemon.name} url={pokemon.url} />
         ))}
       </ul>
       <div ref={sentinelRef} style={{ height: '1px' }} />
