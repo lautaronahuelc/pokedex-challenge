@@ -4,7 +4,7 @@ import PokemonCard from './features/pokemon/PokemonCard'
 
 function App() {
   const [page, setPage] = useState(0)
-  const { data, isLoading, isFetching, isError, error } = useGetPokemonListQuery(page)
+  const { data, isLoading, isFetching, isError, error, refetch } = useGetPokemonListQuery(page)
 
   const observerRef = useRef(null)
 
@@ -15,23 +15,31 @@ function App() {
 
       observerRef.current = new IntersectionObserver((entries) => {
         const isVisible = entries[0].isIntersecting
-        if (isVisible && !isFetching) {
+        if (isVisible && !isFetching && !isError) {
           setPage((p) => p + 1)
         }
       })
 
       observerRef.current.observe(node)
     },
-    [isFetching]
+    [isFetching, isError]
   )
 
   useEffect(() => {
     return () => observerRef.current?.disconnect()
   }, [])
 
-  if (isLoading) return <p>Cargando...</p>
-  if (isError) return <p>Error: {error.status}</p>
+  if (isError && !data) {
+    return (
+      <div>
+        <p>No pudimos cargar los pokemones.</p>
+        <button onClick={refetch}>Reintentar</button>
+      </div>
+    )
+  }
 
+  if (isLoading) return <p>Cargando...</p>
+  
   return (
     <div>
       <ul>
@@ -39,8 +47,17 @@ function App() {
           <PokemonCard key={pokemon.name} url={pokemon.url} />
         ))}
       </ul>
-      <div ref={sentinelRef} style={{ height: '1px' }} />
+
       {isFetching && <p>Cargando más...</p>}
+      
+      {isError && !isFetching && (
+        <div>
+          <p>No pudimos cargar más pokemones.</p>
+          <button onClick={refetch}>Reintentar</button>
+        </div>
+      )}
+
+      <div ref={sentinelRef} style={{ height: '1px' }} />
     </div>
   )
 }
