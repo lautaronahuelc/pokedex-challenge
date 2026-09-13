@@ -1,12 +1,13 @@
 import { useGetPokemonDetailQuery } from './pokemonApi'
 import { extractIdFromUrl } from './utils'
+import PokemonCardSkeleton from './PokemonCardSkeleton'
 import styles from './pokemonCard.module.css'
 
 function PokemonCard({ url }) {
   const id = extractIdFromUrl(url)
   const { data, isLoading, isError } = useGetPokemonDetailQuery(id)
 
-  if (isLoading) return <li className={styles.card}>Cargando Pokemon Detail</li>
+  if (isLoading) return <PokemonCardSkeleton />
   if (isError) return <li className={styles.card}>Error al cargar</li>
 
   return (
