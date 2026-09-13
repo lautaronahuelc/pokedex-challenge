@@ -1,7 +1,4 @@
 .card {
-  display: grid;
-  place-content: center;
-  gap: var(--spacing-sm);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -47,4 +44,12 @@
   text-transform: uppercase;
   padding: 2px var(--spacing-sm);
   border-radius: var(--radius-sm);
+}
+
+.link {
+  display: grid;
+  place-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  color: inherit;
 }

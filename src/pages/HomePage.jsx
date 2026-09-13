@@ -44,7 +44,7 @@ function HomePage() {
     <div>
       <ul>
         {data.results.map((pokemon) => (
-          <PokemonCard key={pokemon.name} url={pokemon.url} />
+          <PokemonCard key={pokemon.name} name={pokemon.name} />
         ))}
       </ul>
 
