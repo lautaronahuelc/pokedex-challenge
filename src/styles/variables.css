@@ -13,7 +13,7 @@
   --radius-sm: 6px;
   --radius-md: 12px;
 
-  /* Colores por tipo de Pokémon, usados vía --type-color en los badges */
+  /* Colors by type for Pokémon, used via --type-color in the badges */
   --type-normal: #a8a878;
   --type-fire: #f08030;
   --type-water: #6890f0;
