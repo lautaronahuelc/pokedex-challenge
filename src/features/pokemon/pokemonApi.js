@@ -15,8 +15,8 @@ export const pokemonApi = pokeApi.injectEndpoints({
     }),
 
 		getPokemonDetail: builder.query({
-			query: (id) => `pokemon/${id}`,
-			providesTags: (result, error, id) => [{ type: 'PokemonDetail', id }],
+			query: (name) => `pokemon/${name}`,
+			providesTags: (result, error, name) => [{ type: 'PokemonDetail', id: name }],
 		}),
   }),
 })

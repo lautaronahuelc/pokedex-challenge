@@ -1,4 +1,6 @@
 /**
+ * [UNUSED. REMOVE IF NOT NEEDED IN THE FUTURE]
+ * 
  * Extract the ID from a Pokemon URL.
  * @param {string} url - The URL of the Pokemon.
  * @returns {string|null} The ID of the Pokemon or null if not found.
