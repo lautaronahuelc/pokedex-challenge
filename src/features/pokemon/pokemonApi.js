@@ -18,7 +18,24 @@ export const pokemonApi = pokeApi.injectEndpoints({
 			query: (name) => `pokemon/${name}`,
 			providesTags: (result, error, name) => [{ type: 'PokemonDetail', id: name }],
 		}),
+
+    getPokemonByType: builder.query({
+      query: (typeName) => `type/${typeName}`,
+      transformResponse: (response) => response.pokemon.map((entry) => entry.pokemon),
+      providesTags: (result, error, typeName) => [{ type: 'Type', id: typeName }],
+    }),
+
+    getPokemonByGeneration: builder.query({
+      query: (generationId) => `generation/${generationId}`,
+      transformResponse: (response) => response.pokemon_species,
+      providesTags: (result, error, generationId) => [{ type: 'Generation', id: generationId }],
+    }),
   }),
 })
 
-export const { useGetPokemonListQuery, useGetPokemonDetailQuery } = pokemonApi
+export const {
+  useGetPokemonListQuery,
+  useGetPokemonDetailQuery,
+  useGetPokemonByTypeQuery,
+  useGetPokemonByGenerationQuery,
+} = pokemonApi
