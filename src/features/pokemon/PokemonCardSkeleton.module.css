@@ -1,0 +1,35 @@
+.pulse {
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.sprite {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+}
+
+.number {
+  height: 18px;
+  margin: 0 auto;
+}
+
+.name {
+  height: 21px;
+  margin: 0 auto;
+}
+
+.badge {
+  width: 60px;
+  height: 20px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
