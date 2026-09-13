@@ -30,6 +30,20 @@ export const pokemonApi = pokeApi.injectEndpoints({
       transformResponse: (response) => response.pokemon_species,
       providesTags: (result, error, generationId) => [{ type: 'Generation', id: generationId }],
     }),
+
+    getTypeList: builder.query({
+      query: () => 'type',
+      transformResponse: (response) => response.results,
+      providesTags: ['TypeCatalog'],
+      keepUnusedDataFor: 3600,
+    }),
+
+    getGenerationList: builder.query({
+      query: () => 'generation',
+      transformResponse: (response) => response.results,
+      providesTags: ['GenerationCatalog'],
+      keepUnusedDataFor: 3600,
+    }),
   }),
 })
 
@@ -38,4 +52,6 @@ export const {
   useGetPokemonDetailQuery,
   useGetPokemonByTypeQuery,
   useGetPokemonByGenerationQuery,
+  useGetTypeListQuery,
+  useGetGenerationListQuery,
 } = pokemonApi
