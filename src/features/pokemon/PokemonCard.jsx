@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useGetPokemonDetailQuery } from './pokemonApi'
 import PokemonCardSkeleton from './PokemonCardSkeleton'
+import TypeBadgeList from './TypeBadgeList'
 import styles from './pokemonCard.module.css'
 
 function PokemonCard({ name }) {
@@ -21,17 +22,7 @@ function PokemonCard({ name }) {
         />
         <p className={styles.number}>#{data.id}</p>
         <p className={styles.name}>{data.name}</p>
-        <ul className={styles.badges}>
-          {data.types.map(({ type }) => (
-            <li
-              key={type.name}
-              className={styles.badge}
-              style={{ '--badge-color': `var(--type-${type.name})` }}
-            >
-              {type.name}
-            </li>
-          ))}
-        </ul>
+        <TypeBadgeList types={data.types} />
       </Link>
     </li>
   )
