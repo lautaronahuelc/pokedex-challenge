@@ -8,6 +8,7 @@ import {
 import { combinePokemonSources, paginateClientSide } from '../features/pokemon/filterPokemon'
 import PokemonCard from '../features/pokemon/PokemonCard'
 import SearchBar from '../features/pokemon/SearchBar'
+import FilterBar from '../features/pokemon/FilterBar'
 
 const CLIENT_PAGE_SIZE = 20
 
@@ -50,8 +51,6 @@ function HomePage() {
   const visibleFilteredResults = filteredResults
     ? paginateClientSide(filteredResults, clientPage, CLIENT_PAGE_SIZE)
     : null
-
-  console.log('visibleFilteredResults:', visibleFilteredResults)
 
   const hasMoreFilteredResults = filteredResults
     ? visibleFilteredResults.length < filteredResults.length
@@ -110,6 +109,7 @@ function HomePage() {
   return (
     <div>
       <SearchBar />
+      <FilterBar />
 
       {hasActiveFilters && filteredResults && filteredResults.length === 0 && (
         <p>No encontramos pokémon con esos filtros.</p>
