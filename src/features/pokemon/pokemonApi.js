@@ -44,6 +44,13 @@ export const pokemonApi = pokeApi.injectEndpoints({
       providesTags: ['GenerationCatalog'],
       keepUnusedDataFor: 3600,
     }),
+
+    getAllPokemonNames: builder.query({
+      query: () => 'pokemon?limit=10000&offset=0',
+      transformResponse: (response) => response.results,
+      providesTags: ['PokemonNameCatalog'],
+      keepUnusedDataFor: 3600,
+    }),
   }),
 })
 
@@ -54,4 +61,5 @@ export const {
   useGetPokemonByGenerationQuery,
   useGetTypeListQuery,
   useGetGenerationListQuery,
+  useGetAllPokemonNamesQuery,
 } = pokemonApi
