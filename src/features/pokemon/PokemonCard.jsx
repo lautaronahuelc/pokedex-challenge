@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useGetPokemonDetailQuery } from './pokemonApi'
 import PokemonCardSkeleton from './PokemonCardSkeleton'
 import TypeBadgeList from './TypeBadgeList'
+import FavoriteButton from '../favorites/FavoriteButton'
 import styles from './pokemonCard.module.css'
 
 function PokemonCard({ name }) {
@@ -12,6 +13,7 @@ function PokemonCard({ name }) {
 
   return (
     <li className={styles.card}>
+      <FavoriteButton name={data.name} />
       <Link to={`/pokemon/${data.name}`} className={styles.link}>
         <img
           className={styles.sprite}
