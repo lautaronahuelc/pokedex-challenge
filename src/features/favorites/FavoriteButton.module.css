@@ -1,0 +1,22 @@
+.inactive,
+.active {
+  border: none;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: var(--spacing-xs);
+}
+
+.inactive {
+  color: var(--color-border);
+}
+
+.active {
+  color: var(--color-primary);
+}
+
+.inactive:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
