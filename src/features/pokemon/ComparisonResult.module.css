@@ -1,0 +1,25 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.column {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.name {
+  text-transform: capitalize;
+  margin: var(--spacing-xs) 0;
+}
+
+.measurement {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: var(--spacing-xs) 0;
+}

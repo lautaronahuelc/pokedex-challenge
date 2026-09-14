@@ -112,6 +112,8 @@ function HomePage() {
   return (
     <div>
       <Link to="/team">Ver Mi Equipo</Link>
+      <Link to="/compare">Comparar</Link>
+      
       <SearchBar />
       <FilterBar />
 
