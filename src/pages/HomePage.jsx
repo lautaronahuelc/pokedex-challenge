@@ -29,8 +29,8 @@ function HomePage() {
   const typeQuery = useGetPokemonByTypeQuery(type, { skip: !type })
   const generationQuery = useGetPokemonByGenerationQuery(generation, { skip: !generation })
 
-  const typeReady = !type || typeQuery.data !== undefined
-  const generationReady = !generation || generationQuery.data !== undefined
+  const typeReady = !type || typeQuery.data !== undefined || typeQuery.isError
+  const generationReady = !generation || generationQuery.data !== undefined || generationQuery.isError
   const filtersReady = typeReady && generationReady
 
   const isFilteredLoading = hasActiveFilters && !filtersReady
@@ -94,17 +94,20 @@ function HomePage() {
   if (isInitialLoading) return <p>Cargando...</p>
 
   if (hasActiveFilters && isFilteredError) {
-    return <p>No pudimos cargar el filtro seleccionado.</p>
+    return (
+      <div>
+        <p>No pudimos cargar el filtro seleccionado.</p>
+        <button
+          onClick={() => {
+            if (typeQuery.isError) typeQuery.refetch()
+            if (generationQuery.isError) generationQuery.refetch()
+          }}
+        >
+          Reintentar
+        </button>
+      </div>
+    )
   }
-
-  // if (isError && !data) {
-  //   return (
-  //     <div>
-  //       <p>No pudimos cargar los pokemones.</p>
-  //       <button onClick={refetch}>Reintentar</button>
-  //     </div>
-  //   )
-  // }
 
   return (
     <div>
@@ -122,13 +125,6 @@ function HomePage() {
       </ul>
 
       {isFetching && <p>Cargando más...</p>}
-      
-      {/* {isError && !isFetching && (
-        <div>
-          <p>No pudimos cargar más pokemones.</p>
-          <button onClick={refetch}>Reintentar</button>
-        </div>
-      )} */}
 
       <div ref={sentinelRef} style={{ height: '1px' }} />
     </div>
