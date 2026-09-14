@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import {
   useGetPokemonListQuery,
   useGetPokemonByTypeQuery,
@@ -110,10 +110,7 @@ function HomePage() {
   }
 
   return (
-    <div>
-      <Link to="/team">Ver Mi Equipo</Link>
-      <Link to="/compare">Comparar</Link>
-      
+    <div>      
       <SearchBar />
       <FilterBar />
 
