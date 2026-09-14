@@ -38,7 +38,24 @@
 }
 
 .status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.875rem;
   color: var(--color-text-muted);
-  min-width: 24px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+}
+
+.offline .statusDot {
+  background-color: var(--color-error);
+}
+
+.offline {
+  color: var(--color-error);
 }

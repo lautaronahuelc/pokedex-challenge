@@ -10,7 +10,7 @@ import PokemonCard from '../features/pokemon/PokemonCard'
 import SearchBar from '../features/pokemon/SearchBar'
 import FilterBar from '../features/pokemon/FilterBar'
 
-const CLIENT_PAGE_SIZE = 20
+const CLIENT_PAGE_SIZE = 7
 
 function HomePage() {
   const [searchParams] = useSearchParams()
