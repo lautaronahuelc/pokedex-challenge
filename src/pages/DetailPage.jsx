@@ -6,7 +6,9 @@ import styles from './DetailPage.module.css'
 
 function DetailPage() {
   const { name } = useParams()
-  const { data, isLoading, isError, refetch } = useGetPokemonDetailQuery(name)
+  const { data, isLoading, isError, refetch, fulfilledTimeStamp } = useGetPokemonDetailQuery(name)
+
+  const isFreshData = fulfilledTimeStamp && Date.now() - fulfilledTimeStamp < 1000
 
   if (isError) {
     return (
@@ -31,6 +33,12 @@ function DetailPage() {
       <Link to="/" className={styles.backLink}>
         ← Volver
       </Link>
+
+      {!isLoading && (
+        <p className={styles.cacheStatus}>
+          {isFreshData ? '🟢 Datos recién actualizados' : '🔵 Datos desde cache'}
+        </p>
+      )}
 
       <div className={styles.header}>
         <img
