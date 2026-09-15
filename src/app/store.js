@@ -13,6 +13,7 @@ import storage from 'redux-persist/lib/storage'
 
 import { pokeApi } from '../api/pokeApi'
 import favoritesReducer from '../features/favorites/favoritesSlice'
+import apiPagereducer from '../features/pokemon/pageSlice'
 
 const favoritesPersistConfig = {
   key: 'favorites',
@@ -23,6 +24,8 @@ export const store = configureStore({
   reducer: {
     [pokeApi.reducerPath]: pokeApi.reducer,
     favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
+    apiPage: apiPagereducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
