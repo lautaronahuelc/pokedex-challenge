@@ -3,7 +3,7 @@
   --color-primary-bg: #fdecee;
   --color-success: #16a34a;
   --color-error: #dc2626;
-  --color-bg: #f5f6fa;
+  --color-bg: #f6f8fc;
   --color-surface: #ffffff;
   --color-text: #2b2b2b;
   --color-text-muted: #6b7280;
@@ -13,27 +13,30 @@
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
+  --spacing-xl: 36px;
 
   --radius-sm: 6px;
   --radius-md: 12px;
+  --radius-lg: 24px;
 
   /* Colors by type for Pokémon, used via --type-color in the badges */
-  --type-normal: #a8a878;
-  --type-fire: #f08030;
-  --type-water: #6890f0;
-  --type-electric: #f8d030;
-  --type-grass: #78c850;
-  --type-ice: #98d8d8;
-  --type-fighting: #c03028;
-  --type-poison: #a040a0;
-  --type-ground: #e0c068;
-  --type-flying: #a890f0;
-  --type-psychic: #f85888;
-  --type-bug: #a8b820;
-  --type-rock: #b8a038;
-  --type-ghost: #705898;
-  --type-dragon: #7038f8;
-  --type-dark: #705848;
-  --type-steel: #b8b8d0;
-  --type-fairy: #ee99ac;
+  --type-normal: #b8b894;
+  --type-fire: #ff944d;
+  --type-water: #80a5ff;
+  --type-electric: #ffe04d;
+  --type-grass: #94e073;
+  --type-ice: #b3ebeb;
+  --type-fighting: #e65c53;
+  --type-poison: #c766c7;
+  --type-ground: #ebd088;
+  --type-flying: #bbb3ff;
+  --type-psychic: #ff7ea5;
+  --type-bug: #c2d633;
+  --type-rock: #d6be54;
+  --type-ghost: #9480b8;
+  --type-dragon: #9466ff;
+  --type-dark: #948073;
+  --type-steel: #ccccde;
+  --type-fairy: #ffb3c1;
+
 }

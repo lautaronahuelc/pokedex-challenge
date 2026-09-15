@@ -1,15 +1,20 @@
 .card {
+  position: relative;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  padding-top: 56px;
   list-style: none;
   text-align: center;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
 }
 
 .sprite {
-  width: 96px;
-  height: 96px;
+  position: absolute;
+  top: -48px;
+  left: calc(50% - 36px);
+  width: 72px;
+  height: 72px;
   image-rendering: pixelated;
   margin: 0 auto;
 }
@@ -18,10 +23,12 @@
   color: var(--color-text-muted);
   font-size: 0.85rem;
   margin: 0;
+  font-weight: bold;
 }
 
 .name {
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: bolder;
   text-transform: capitalize;
   margin: 0;
 }
@@ -29,7 +36,17 @@
 .link {
   display: grid;
   place-content: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   text-decoration: none;
   color: inherit;
+}
+
+.favorite {
+  position: absolute;
+  right: 16px;
+  top: 0;
+}
+
+.liked {
+  background-color: #ffecee;
 }

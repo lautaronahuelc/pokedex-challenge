@@ -6,14 +6,20 @@
   cursor: pointer;
   line-height: 1;
   padding: var(--spacing-xs);
+
+  svg {
+    width: 28px;
+    height: 28px;
+    border-radius: 25px;
+  }
 }
 
-.inactive {
-  color: var(--color-border);
+.inactive svg {
+  fill: var(--color-border);
 }
 
-.active {
-  color: var(--color-primary);
+.active svg {
+  fill: var(--color-primary);
 }
 
 .inactive:disabled {

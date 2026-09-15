@@ -1,17 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import useOnlineStatus from '../../hooks/UseOnlineStatus'
 import styles from './Header.module.css'
 
 function Header() {
   const isOnline = useOnlineStatus()
-
-  const isFetchingAnything = useSelector((state) =>
-    Object.values(state.pokeApi.queries).some((query) => query?.status === 'pending')
-  )
-
-  const statusLabel = !isOnline ? 'Sin conexión' : isFetchingAnything ? 'Actualizando...' : 'Al día'
-
+  const statusLabel = !isOnline ? 'Sin conexión' : 'Conectado'
 
   return (
     <header className={styles.header}>

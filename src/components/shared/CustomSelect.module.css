@@ -1,0 +1,67 @@
+.container {
+  position: relative;
+  width: 250px;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+  padding: 10px 15px;
+  font-family: 'Questrial', sans-serif;
+  font-weight: bold;
+  color: var(--color-text-muted);
+  background: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+.trigger .arrow {
+  border: solid #555;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.trigger.open .arrow {
+  transform: rotate(-135deg);
+}
+
+.options {
+  position: absolute;
+  top: 130%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.option {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+.option.selected {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: bold;
+}
