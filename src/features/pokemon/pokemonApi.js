@@ -1,6 +1,6 @@
 import { pokeApi } from '../../api/pokeApi'
 
-const PAGE_SIZE = 7
+const PAGE_SIZE = 9
 
 export const pokemonApi = pokeApi.injectEndpoints({
   endpoints: (builder) => ({

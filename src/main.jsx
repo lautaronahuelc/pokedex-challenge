@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { BrowserRouter } from 'react-router-dom'
 
+import '@fontsource/questrial'
+
 import './styles/global.css'
 import App from './App.jsx'
 import { store, persistor } from './app/store.js'

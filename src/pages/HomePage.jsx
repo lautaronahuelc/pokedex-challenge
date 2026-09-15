@@ -12,8 +12,9 @@ import { combinePokemonSources, paginateClientSide } from '../features/pokemon/f
 import PokemonCard from '../features/pokemon/PokemonCard'
 import SearchBar from '../features/pokemon/SearchBar'
 import FilterBar from '../features/pokemon/FilterBar'
+import styles from './HomePage.module.css'
 
-const CLIENT_PAGE_SIZE = 7
+const CLIENT_PAGE_SIZE = 9
 
 function HomePage() {
   const apiPage = useSelector((state) => state.apiPage.number)
@@ -127,15 +128,17 @@ function HomePage() {
   }
 
   return (
-    <div>      
-      <SearchBar />
-      <FilterBar />
+    <div className={styles.container}>
+      <div className={styles.filterContainer}>
+        <SearchBar />
+        <FilterBar />
+      </div> 
 
       {hasActiveFilters && filteredResults && filteredResults.length === 0 && (
         <p>No encontramos pokémon con esos filtros.</p>
       )}
 
-      <ul>
+      <ul className={styles.grid}>
         {itemsToRender?.map((pokemon) => (
           <PokemonCard key={pokemon.name} name={pokemon.name} />
         ))}

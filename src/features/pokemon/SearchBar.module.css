@@ -1,0 +1,19 @@
+.search {
+  height: 42px;
+  padding: 0 16px;
+  font-family: 'Questrial', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  flex-basis: 50%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+  }
+
+  &::placeholder {
+    font-weight: normal;
+  }
+}

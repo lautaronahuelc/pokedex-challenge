@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 280px);
+  justify-content: center;
+  gap: 84px 16px;
+  padding: 16px;
+  margin-top: 64px;
+}
+
+.filterContainer {
+  display: flex;
+  gap: var(--spacing-md);
+  margin: var(--spacing-md);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 904px;
+}

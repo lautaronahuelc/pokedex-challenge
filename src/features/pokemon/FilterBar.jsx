@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useGetTypeListQuery, useGetGenerationListQuery } from './pokemonApi'
+import styles from './FilterBar.module.css'
+import CustomSelect from '../../components/shared/CustomSelect'
 
 const ROMAN_TO_NUMBER = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9 }
 const NUMBER_TO_ROMAN = Object.fromEntries(
@@ -7,14 +10,14 @@ const NUMBER_TO_ROMAN = Object.fromEntries(
 )
 
 function FilterBar() {
+  const { data: types, isLoading: isLoadingTypes } = useGetTypeListQuery()
+  const { data: generations, isLoading: isLoadingGenerations } = useGetGenerationListQuery()
+  
   const [searchParams, setSearchParams] = useSearchParams()
-  const { data: types } = useGetTypeListQuery()
-  const { data: generations } = useGetGenerationListQuery()
-
-  const currentType = searchParams.get('type') ?? ''
-  const currentGenerationNumber = searchParams.get('generation') ?? ''
-  const currentGenerationName = currentGenerationNumber
-    ? `generation-${NUMBER_TO_ROMAN[currentGenerationNumber]}`
+  const typeParam = searchParams.get('type') ?? ''
+  const generationParamNumber = searchParams.get('generation') ?? ''
+  const generationParamName = generationParamNumber
+    ? `generation-${NUMBER_TO_ROMAN[generationParamNumber]}`
     : ''
 
   const updateParam = (key, value) => {
@@ -27,31 +30,29 @@ function FilterBar() {
     setSearchParams(next)
   }
 
-  return (
-    <div>
-      <select value={currentType} onChange={(e) => updateParam('type', e.target.value)}>
-        <option value="">Todos los tipos</option>
-        {types?.map((t) => (
-          <option key={t.name} value={t.name}>
-            {t.name}
-          </option>
-        ))}
-      </select>
+  if (isLoadingTypes || isLoadingGenerations) {
+    return null;
+  }
 
-      <select
-        value={currentGenerationName}
-        onChange={(e) => {
-          const roman = e.target.value.replace('generation-', '')
-          updateParam('generation', ROMAN_TO_NUMBER[roman] ?? '')
-        }}
-      >
-        <option value="">Todas las generaciones</option>
-        {generations?.map((g) => (
-          <option key={g.name} value={g.name}>
-            {g.name}
-          </option>
-        ))}
-      </select>
+  const normalizedTypes = (types || []).map((t) => ({ value: t.name, label: t.name }))
+  const allTypes = [{ value: '', label: 'Todos los tipos'}, ...normalizedTypes]
+
+  const normalizedGenerations = (generations || []).map((g) => ({ value: g.name, label: g.name }))
+  const allGenerations = [{ value: '', label: 'Todas las generaciones'}, ...normalizedGenerations]
+
+  const handleOnChangeType = (selectedOption) => {
+    updateParam('type', selectedOption.value)
+  }
+
+  const handleOnChangeGeneration = (selectedOption) => {
+    const roman = selectedOption.value.replace('generation-', '')
+    updateParam('generation', ROMAN_TO_NUMBER[roman] ?? '')
+  }
+
+  return (
+    <div className={styles.container}>
+      <CustomSelect options={allTypes} value={typeParam} onChange={handleOnChangeType} />
+      <CustomSelect options={allGenerations} value={generationParamName} onChange={handleOnChangeGeneration} />
     </div>
   )
 }

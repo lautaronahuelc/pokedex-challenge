@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import styles from './SearchBar.module.css'
 
 const DEBOUNCE_MS = 300
 
@@ -23,8 +24,9 @@ function SearchBar() {
 
   return (
     <input
+      className={styles.search}
       type="text"
-      placeholder="Buscar pokémon..."
+      placeholder="Buscá tu pokemon..."
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
     />
