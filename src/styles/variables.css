@@ -1,6 +1,8 @@
 :root {
   --color-primary: #dc0a2d;
   --color-primary-bg: #fdecee;
+  --color-success: #16a34a;
+  --color-error: #dc2626;
   --color-bg: #f5f6fa;
   --color-surface: #ffffff;
   --color-text: #2b2b2b;

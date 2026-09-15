@@ -1,6 +1,6 @@
 import { pokeApi } from '../../api/pokeApi'
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 7
 
 export const pokemonApi = pokeApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,6 +12,7 @@ export const pokemonApi = pokeApi.injectEndpoints({
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
 			providesTags: ['PokemonList'],
+      keepUnusedDataFor: 0, // workaround to avoid infinite scrolling error
     }),
 
 		getPokemonDetail: builder.query({
@@ -46,7 +47,7 @@ export const pokemonApi = pokeApi.injectEndpoints({
     }),
 
     getAllPokemonNames: builder.query({
-      query: () => 'pokemon?limit=10000&offset=0',
+      query: () => 'pokemon?limit=100000&offset=0',
       transformResponse: (response) => response.results,
       providesTags: ['PokemonNameCatalog'],
       keepUnusedDataFor: 3600,

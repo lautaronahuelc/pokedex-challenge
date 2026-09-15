@@ -1,46 +1,54 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { nextPage } from '../features/pokemon/pageSlice'
 import {
   useGetPokemonListQuery,
   useGetPokemonByTypeQuery,
   useGetPokemonByGenerationQuery,
+  useGetAllPokemonNamesQuery,
 } from '../features/pokemon/pokemonApi'
 import { combinePokemonSources, paginateClientSide } from '../features/pokemon/filterPokemon'
 import PokemonCard from '../features/pokemon/PokemonCard'
 import SearchBar from '../features/pokemon/SearchBar'
 import FilterBar from '../features/pokemon/FilterBar'
 
-const CLIENT_PAGE_SIZE = 20
+const CLIENT_PAGE_SIZE = 7
 
 function HomePage() {
+  const apiPage = useSelector((state) => state.apiPage.number)
+  const dispatch = useDispatch()
+
   const [searchParams] = useSearchParams()
   const search = searchParams.get('search') ?? ''
   const type = searchParams.get('type') ?? ''
   const generation = searchParams.get('generation') ?? ''
 
-  const hasActiveFilters = Boolean(type || generation)
+  const hasActiveFilters = Boolean(type || generation || search)
 
   // Normal pagination: infinite scroll with the API, when no filters are active.
-  const [apiPage, setApiPage] = useState(0)
   const apiListQuery = useGetPokemonListQuery(apiPage, { skip: hasActiveFilters })
 
   // Client-side pagination: when filters are active, we fetch all the filtered results and paginate them in the client.
   const [clientPage, setClientPage] = useState(0)
   const typeQuery = useGetPokemonByTypeQuery(type, { skip: !type })
   const generationQuery = useGetPokemonByGenerationQuery(generation, { skip: !generation })
+  const searchQuery = useGetAllPokemonNamesQuery()
 
   const typeReady = !type || typeQuery.data !== undefined || typeQuery.isError
   const generationReady = !generation || generationQuery.data !== undefined || generationQuery.isError
-  const filtersReady = typeReady && generationReady
+  const searchReady = !search || searchQuery.data !== undefined || searchQuery.isError
+  const filtersReady = typeReady && generationReady && searchReady
 
   const isFilteredLoading = hasActiveFilters && !filtersReady
-  const isFilteredError = typeQuery.isError || generationQuery.isError
+  const isFilteredError = typeQuery.isError || generationQuery.isError || searchQuery.isError
 
   const filteredResults = hasActiveFilters && filtersReady
     ? combinePokemonSources({
         typeList: type ? typeQuery.data : null,
         generationList: generation ? generationQuery.data : null,
         search,
+        allPokemonList: search ? searchQuery.data : null,
       })
     : null
 
@@ -56,33 +64,42 @@ function HomePage() {
     ? visibleFilteredResults.length < filteredResults.length
     : false
 
-  const observerRef = useRef(null)
   const isFetching = hasActiveFilters ? isFilteredLoading : apiListQuery.isFetching
   const canLoadMore = hasActiveFilters ? hasMoreFilteredResults : true
+    
+  const observerRef = useRef(null)
+  const stateRef = useRef({ isFetching, canLoadMore, hasActiveFilters })
+  useEffect(() => {
+    stateRef.current = { isFetching, canLoadMore, hasActiveFilters }
+  }, [isFetching, canLoadMore, hasActiveFilters])
 
-  const sentinelRef = useCallback(
-    (node) => {
-      if (observerRef.current) observerRef.current.disconnect()
-      if (!node) return
+  const sentinelRef = useCallback((node) => {
+    if (observerRef.current) observerRef.current.disconnect()
+    if (!node) return
 
-      observerRef.current = new IntersectionObserver((entries) => {
-        const isVisible = entries[0].isIntersecting
-        if (isVisible && !isFetching && canLoadMore) {
-          if (hasActiveFilters) {
-            setClientPage((p) => p + 1)
-          } else {
-            setApiPage((p) => p + 1)
-          }
+    observerRef.current = new IntersectionObserver(([entry]) => {
+      const {
+        isFetching: currentFetching,
+        canLoadMore: currentCanLoadMore,
+        hasActiveFilters: currentHasFilters
+      } = stateRef.current
+
+      if (entry.isIntersecting && !currentFetching && currentCanLoadMore) {
+        if (currentHasFilters) {
+          setClientPage((p) => p + 1)
+        } else {
+          dispatch(nextPage())
         }
-      })
+      }
+    })
 
-      observerRef.current.observe(node)
-    },
-    [isFetching, canLoadMore, hasActiveFilters]
-  )
+    observerRef.current.observe(node)
+  },[])
 
   useEffect(() => {
-    return () => observerRef.current?.disconnect()
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect()
+    }
   }, [])
 
   const itemsToRender = hasActiveFilters ? visibleFilteredResults : apiListQuery.data?.results

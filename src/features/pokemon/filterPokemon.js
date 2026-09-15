@@ -3,10 +3,11 @@
  * @param sources - The sources to combine.
  * @param {Array} sources.typeList - List of Pokémon filtered by type.
  * @param {Array} sources.generationList - List of Pokémon filtered by generation.
- * @param {string} sources.search - Search term to filter Pokémon by name. 
+ * @param {string} sources.search - Search term to filter Pokémon by name.
+ * @param {Array} sources.allPokemonList - List of all Pokémons.
  * @returns {Array|null} The combined list of Pokémon or null if no filters are active.
  */
-export function combinePokemonSources({ typeList, generationList, search }) {
+export function combinePokemonSources({ typeList, generationList, search, allPokemonList }) {
   let combined = null
 
   if (typeList && generationList) {
@@ -18,14 +19,16 @@ export function combinePokemonSources({ typeList, generationList, search }) {
     combined = generationList
   }
 
-  // combined === null means "there is no type or generation filter active",
+  // if there is no type or generation filter active and no search term,
   // in that case, the caller should use the general paginated list instead of this result.
-  if (combined === null) return null
+  if (combined === null && !search) return null
 
-  if (search) {
-    const term = search.toLowerCase()
-    combined = combined.filter((p) => p.name.includes(term))
-  }
+  if (combined === null && search) {
+    combined = allPokemonList.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
+  } else if (combined !== null && search) {
+    const searchLower = search.toLowerCase()
+    combined = combined.filter((p) => p.name.toLowerCase().includes(searchLower))
+  } 
 
   return combined
 }
