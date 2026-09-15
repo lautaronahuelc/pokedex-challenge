@@ -1,0 +1,49 @@
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.field input {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+  z-index: 20;
+}
+
+.dropdown li button {
+  width: 100%;
+  text-align: left;
+  padding: var(--spacing-sm);
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.dropdown li button:hover {
+  background-color: var(--color-primary-bg);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin: 0;
+}

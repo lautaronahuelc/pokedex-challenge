@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { useGetAllPokemonNamesQuery } from '../features/pokemon/pokemonApi'
 import ComparisonResult from '../features/pokemon/ComparisonResult'
+import PokemonCombobox from '../features/pokemon/PokemonCombobox'
 import styles from './ComparePage.module.css'
 
 const compareSchema = Yup.object({
@@ -30,32 +31,8 @@ function ComparePage() {
         }}
       >
         <Form className={styles.form}>
-          <div className={styles.field}>
-            <label htmlFor="pokemonA">Pokémon 1</label>
-            <Field as="select" name="pokemonA" id="pokemonA">
-              <option value="">Seleccioná uno</option>
-              {allNames?.map((p) => (
-                <option key={p.name} value={p.name}>
-                  {p.name}
-                </option>
-              ))}
-            </Field>
-            <ErrorMessage name="pokemonA" component="p" className={styles.error} />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor="pokemonB">Pokémon 2</label>
-            <Field as="select" name="pokemonB" id="pokemonB">
-              <option value="">Seleccioná uno</option>
-              {allNames?.map((p) => (
-                <option key={p.name} value={p.name}>
-                  {p.name}
-                </option>
-              ))}
-            </Field>
-            <ErrorMessage name="pokemonB" component="p" className={styles.error} />
-          </div>
-
+          <PokemonCombobox name="pokemonA" label="Pokémon 1" allNames={allNames} />
+          <PokemonCombobox name="pokemonB" label="Pokémon 2" allNames={allNames} />
           <button type="submit">Comparar</button>
         </Form>
       </Formik>
