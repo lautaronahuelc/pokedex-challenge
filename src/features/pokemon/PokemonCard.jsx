@@ -4,7 +4,7 @@ import { useGetPokemonDetailQuery } from './pokemonApi'
 import PokemonCardSkeleton from './PokemonCardSkeleton'
 import TypeBadgeList from './TypeBadgeList'
 import FavoriteButton from '../favorites/FavoriteButton'
-import styles from './pokemonCard.module.css'
+import styles from './PokemonCard.module.css'
 import StatBars from './StatBars'
 
 function PokemonCard({ showStats, name }) {
