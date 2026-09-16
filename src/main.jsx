@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import '@fontsource/questrial'
 
+import { ToastProvider } from './components/toasts/ToastContext.jsx'
 import './styles/global.css'
 import App from './App.jsx'
 import { store, persistor } from './app/store.js'
@@ -14,9 +15,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ToastProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ToastProvider>
       </PersistGate>
     </Provider>
   </StrictMode>,

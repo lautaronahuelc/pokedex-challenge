@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { useToast } from '../../components/toasts/ToastContext'
 import { addFavorite, removeFavorite, MAX_FAVORITES } from './favoritesSlice'
 import styles from './FavoriteButton.module.css'
 
 function FavoriteButton({ name }) {
   const dispatch = useDispatch()
   const favoriteNames = useSelector((state) => state.favorites.names)
+  const { showToast } = useToast()
 
   const isFavorite = favoriteNames.includes(name)
   const isFull = favoriteNames.length >= MAX_FAVORITES
@@ -15,8 +17,12 @@ function FavoriteButton({ name }) {
 
     if (isFavorite) {
       dispatch(removeFavorite(name))
+      showToast(`${name} eliminado del equipo`, 'info')
     } else if (!isFull) {
       dispatch(addFavorite(name))
+      showToast(`${name} agregado al equipo`, 'success')
+    } else {
+      showToast('Ya tenés 6 favoritos, sacá uno para agregar otro', 'error')
     }
   }
 
@@ -24,7 +30,6 @@ function FavoriteButton({ name }) {
     <button
       className={isFavorite ? styles.active : styles.inactive}
       onClick={handleClick}
-      disabled={!isFavorite && isFull}
       aria-label={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
       title={!isFavorite && isFull ? 'Ya tenés 6 favoritos' : undefined}
     >

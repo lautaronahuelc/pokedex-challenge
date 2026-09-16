@@ -14,8 +14,9 @@
 .header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
 }
 
 .headerInfo {
