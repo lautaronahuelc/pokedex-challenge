@@ -14,7 +14,6 @@ import SearchBar from '../features/pokemon/SearchBar'
 import FilterBar from '../features/pokemon/FilterBar'
 import ErrorMessage from '../components/shared/ErrorMessage'
 import styles from './HomePage.module.css'
-import PokemonCardSkeleton from '../features/pokemon/PokemonCardSkeleton'
 
 const CLIENT_PAGE_SIZE = 9
 
