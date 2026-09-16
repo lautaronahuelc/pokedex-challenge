@@ -1,16 +1,13 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 300px));
   gap: var(--spacing-lg);
+  justify-content: center;
   margin-top: var(--spacing-lg);
 }
 
 .column {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
-  text-align: center;
+  margin-top: 62px;
 }
 
 .name {

@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-lg);
 }
 
 .main {
@@ -9,5 +10,4 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-lg) var(--spacing-md);
 }

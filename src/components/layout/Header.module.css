@@ -1,47 +1,70 @@
 .header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+    height: 64px;
+    background-color: #ffffff;
+    border-top: 1px solid #ffecee;
+    z-index: 10;
+
+    @media (width >= 768px) {
+        position: sticky;
+        top: 20px;
+        height: 90px;
+        border-radius: 18px;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        max-width: 904px;
+        align-self: center;
+    }
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: bolder;
   color: var(--color-primary);
   text-decoration: none;
 }
 
 .nav {
   display: flex;
+  align-items: center;
   gap: var(--spacing-md);
   flex: 1;
+  max-width: max-content;
+  height: inherit;
 }
 
 .link,
 .activeLink {
+  display: flex;
+  align-items: center;
+  height: inherit;
   text-decoration: none;
   color: var(--color-text);
-  font-weight: 500;
+  font-weight: bold;
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
 }
 
 .activeLink {
   color: var(--color-primary);
-  background-color: var(--color-primary-bg);
+  border-top: 3px solid var(--color-primary);
+
+  @media (width >= 768px) {
+    border-top: none;
+    border-bottom: 3px solid var(--color-primary);
+  }
 }
 
 .status {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.875rem;
+  font-weight: bold;
   color: var(--color-text-muted);
 }
 

@@ -1,0 +1,49 @@
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: 1rem auto;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid #f5c2c2;
+  border-radius: 8px;
+  background-color: #fcf8f8;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.errorIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  margin: 0 0 0.5rem 0;
+  color: #ba1a1a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.errorDescription {
+  margin: 0 0 1.5rem 0;
+  color: #534343;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.retryButton {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #ba1a1a;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: #93000a;
+}

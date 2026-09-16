@@ -3,6 +3,7 @@ import { useGetPokemonDetailQuery } from '../features/pokemon/pokemonApi'
 import TypeBadgeList from '../features/pokemon/TypeBadgeList'
 import StatsBar from '../features/pokemon/StatBars'
 import styles from './DetailPage.module.css'
+import Button from '../components/shared/Button'
 
 function DetailPage() {
   const { name } = useParams()
@@ -30,8 +31,10 @@ function DetailPage() {
 
   return (
     <div className={styles.page}>
-      <Link to="/" className={styles.backLink}>
-        ← Volver
+      <Link to={-1} className={styles.backLink}>
+        <Button>
+          Volver
+        </Button>
       </Link>
 
       {!isLoading && (

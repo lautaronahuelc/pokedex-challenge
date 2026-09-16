@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './CustomSelect.module.css';
 import { capitalizeText } from '../../utils/capitalizeText';
 
-const CustomSelect = ({ options, value, onChange }) => {
+const CustomSelect = ({ options, value, onChange, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
  
@@ -24,7 +24,7 @@ const CustomSelect = ({ options, value, onChange }) => {
   };
 
   return (
-    <div className={styles.container} ref={selectRef}>
+    <div className={`${styles.container} ${className}`} ref={selectRef}>
       <div 
         className={`${styles.trigger} ${isOpen ? styles.open : ''}`} 
         onClick={() => setIsOpen(!isOpen)}

@@ -12,7 +12,9 @@ import { combinePokemonSources, paginateClientSide } from '../features/pokemon/f
 import PokemonCard from '../features/pokemon/PokemonCard'
 import SearchBar from '../features/pokemon/SearchBar'
 import FilterBar from '../features/pokemon/FilterBar'
+import ErrorMessage from '../components/shared/ErrorMessage'
 import styles from './HomePage.module.css'
+import PokemonCardSkeleton from '../features/pokemon/PokemonCardSkeleton'
 
 const CLIENT_PAGE_SIZE = 9
 
@@ -103,6 +105,16 @@ function HomePage() {
     }
   }, [])
 
+  const handleFilterRetry = () => {
+    if (typeQuery.isError) typeQuery.refetch()
+    if (generationQuery.isError) generationQuery.refetch()
+    if (searchQuery.isError) searchQuery.refetch()
+  }
+
+  const handleApiListRetry = () => {
+    apiListQuery.refetch()
+  }
+
   const itemsToRender = hasActiveFilters ? visibleFilteredResults : apiListQuery.data?.results
 
   const isInitialLoading = hasActiveFilters
@@ -111,31 +123,37 @@ function HomePage() {
 
   if (isInitialLoading) return <p>Cargando...</p>
 
-  if (hasActiveFilters && isFilteredError) {
+  if (hasActiveFilters && isFilteredError) {  
     return (
-      <div>
-        <p>No pudimos cargar el filtro seleccionado.</p>
-        <button
-          onClick={() => {
-            if (typeQuery.isError) typeQuery.refetch()
-            if (generationQuery.isError) generationQuery.refetch()
-          }}
-        >
-          Reintentar
-        </button>
-      </div>
-    )
+        <div className={styles.container}>
+          <ErrorMessage message={'No pudimos cargar el filtro seleccionado.'} onRetry={handleFilterRetry} />
+        </div>
+      )
+  }
+
+  if (!itemsToRender.length && apiListQuery.isError) {  
+    return (
+        <div className={styles.container}>
+          <ErrorMessage message={'Error al cargar pokemones.'} onRetry={handleApiListRetry} />
+        </div>
+      )
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.filterContainer}>
-        <SearchBar />
-        <FilterBar />
+        {isFilteredError ? (
+          <ErrorMessage message={'Error al cargar los filtros'} onRetry={handleFilterRetry}/>
+        ) : (
+          <>
+            <SearchBar />
+            <FilterBar />
+          </>
+        )}
       </div> 
 
       {hasActiveFilters && filteredResults && filteredResults.length === 0 && (
-        <p>No encontramos pokémon con esos filtros.</p>
+        <ErrorMessage message={'No encontramos pokemons con esos filtros.'} />
       )}
 
       <ul className={styles.grid}>
@@ -145,8 +163,14 @@ function HomePage() {
       </ul>
 
       {isFetching && <p>Cargando más...</p>}
+      
+      {apiListQuery.isError && (
+        <ErrorMessage message={'Error al cargar más pokemones.'} onRetry={handleApiListRetry} />
+      )}
 
-      <div ref={sentinelRef} style={{ height: '1px' }} />
+      {!apiListQuery.isError && (
+        <div ref={sentinelRef} style={{ height: '1px' }} />
+      )}
     </div>
   )
 }

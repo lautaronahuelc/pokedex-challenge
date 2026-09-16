@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { useGetAllPokemonNamesQuery } from '../features/pokemon/pokemonApi'
 import ComparisonResult from '../features/pokemon/ComparisonResult'
 import PokemonCombobox from '../features/pokemon/PokemonCombobox'
+import Button from '../components/shared/Button'
 import styles from './ComparePage.module.css'
 
 const compareSchema = Yup.object({
@@ -21,8 +22,6 @@ function ComparePage() {
 
   return (
     <div className={styles.page}>
-      <h1>Comparar Pokémon</h1>
-
       <Formik
         initialValues={{ pokemonA: '', pokemonB: '' }}
         validationSchema={compareSchema}
@@ -33,7 +32,7 @@ function ComparePage() {
         <Form className={styles.form}>
           <PokemonCombobox name="pokemonA" label="Pokémon 1" allNames={allNames} />
           <PokemonCombobox name="pokemonB" label="Pokémon 2" allNames={allNames} />
-          <button type="submit">Comparar</button>
+          <Button type="submit">Comparar</Button>
         </Form>
       </Formik>
 

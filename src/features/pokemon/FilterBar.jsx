@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useGetTypeListQuery, useGetGenerationListQuery } from './pokemonApi'
 import styles from './FilterBar.module.css'
@@ -51,8 +50,18 @@ function FilterBar() {
 
   return (
     <div className={styles.container}>
-      <CustomSelect options={allTypes} value={typeParam} onChange={handleOnChangeType} />
-      <CustomSelect options={allGenerations} value={generationParamName} onChange={handleOnChangeGeneration} />
+      <CustomSelect
+        className={styles.select}
+        options={allTypes}
+        value={typeParam}
+        onChange={handleOnChangeType}
+      />
+      <CustomSelect
+        className={styles.select}
+        options={allGenerations}
+        value={generationParamName}
+        onChange={handleOnChangeGeneration}
+      />
     </div>
   )
 }

@@ -2,6 +2,8 @@ import { useGetPokemonDetailQuery } from './pokemonApi'
 import TypeBadgeList from './TypeBadgeList'
 import StatBars from './StatBars'
 import styles from './ComparisonResult.module.css'
+import ErrorMessage from '../../components/shared/ErrorMessage'
+import PokemonCard from './PokemonCard'
 
 function ComparisonColumn({ name }) {
   const { data, isLoading, isError, refetch } = useGetPokemonDetailQuery(name)
@@ -9,22 +11,14 @@ function ComparisonColumn({ name }) {
   if (isError) {
     return (
       <div className={styles.column}>
-        <p>No pudimos cargar {name}.</p>
-        <button onClick={refetch}>Reintentar</button>
+        <ErrorMessage message={`No pudimos cargar ${name}.`} onRetry={refetch} />
       </div>
     )
   }
 
-  if (isLoading) return <div className={styles.column}>Cargando...</div>
-
   return (
     <div className={styles.column}>
-      <img src={data.sprites.front_default} alt={data.name} width={120} height={120} />
-      <h2 className={styles.name}>{data.name}</h2>
-      <TypeBadgeList types={data.types} />
-      <p className={styles.measurement}>Altura: {data.height / 10} m</p>
-      <p className={styles.measurement}>Peso: {data.weight / 10} kg</p>
-      <StatBars stats={data.stats} />
+      <PokemonCard name={name} showStats />
     </div>
   )
 }

@@ -1,3 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
 .pulse {
   background-color: var(--color-border);
   border-radius: var(--radius-sm);
@@ -5,24 +18,54 @@
 }
 
 .sprite {
-  width: 72px;
-  height: 72px;
+  position: absolute;
+  top: -62px;
+  width: 96px;
+  height: 96px;
   margin: 0 auto;
 }
 
 .number {
-  height: 18px;
+  height: 14px;
   margin: 0 auto;
 }
 
 .name {
-  height: 21px;
+  height: 20px;
   margin: 0 auto;
 }
 
+.badges {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
 .badge {
+  width: 76px;
+  height: 29px;
+}
+
+.statsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.mesurements {
+
+}
+
+.height, .weight {
   width: 60px;
-  height: 20px;
+  height: 15px;
+  margin: 4px 0;
+}
+
+.stats {
+  width: 252px;
+  height: 124px;
+  align-self: center;
 }
 
 @keyframes pulse {

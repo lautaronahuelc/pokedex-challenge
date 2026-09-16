@@ -6,8 +6,20 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: var(--spacing-md);
-  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  justify-content: center;
+  gap: 84px 16px;
+  margin: auto;
+  margin-top: 48px;
   padding: 0;
+  max-width: 904px;
+  list-style: none;
+
+  @media (width >= 768px) {
+    margin-top: 90px;
+  }
+}
+
+.title {
+  margin-top: 68px;
 }

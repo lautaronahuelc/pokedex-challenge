@@ -1,6 +1,7 @@
 :root {
   --color-primary: #dc0a2d;
   --color-primary-bg: #fdecee;
+  --color-primary-dark: #c20c2a;
   --color-success: #16a34a;
   --color-error: #dc2626;
   --color-bg: #f6f8fc;
@@ -38,5 +39,4 @@
   --type-dark: #948073;
   --type-steel: #ccccde;
   --type-fairy: #ffb3c1;
-
 }
