@@ -2,7 +2,11 @@
 
 Pokedex construida con React 18 + Vite 5, Redux Toolkit + RTK Query, redux-persist, React Router v6, Formik + Yup y CSS Modules. JavaScript puro, sin TypeScript. Datos de [PokeAPI](https://pokeapi.co).
 
-## Instalación y ejecución
+## Netlify Deploy
+
+[https://acdc-challenge.netlify.app/?search=pikachu&type=electric&generation=1](https://acdc-challenge.netlify.app/?search=pikachu&type=electric&generation=1)
+
+## Instalación y ejecución local
 
 ```bash
 npm install
