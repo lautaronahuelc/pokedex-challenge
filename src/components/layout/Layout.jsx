@@ -1,5 +1,6 @@
 import ToastContainer from '../toasts/ToastContainer'
 import Header from './Header'
+import ScrollToTopBtn from '../ScrollToTopBtn/ScrollToTopBtn'
 import styles from './Layout.module.css'
 
 function Layout({ children }) {
@@ -8,6 +9,7 @@ function Layout({ children }) {
       <Header />
       <main className={styles.main}>{children}</main>
       <ToastContainer />
+      <ScrollToTopBtn />
     </div>
   )
 }
