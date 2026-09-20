@@ -114,7 +114,9 @@ function HomePage() {
     apiListQuery.refetch()
   }
 
-  const itemsToRender = hasActiveFilters ? visibleFilteredResults : apiListQuery.data?.results
+  const itemsToRender = hasActiveFilters
+    ? visibleFilteredResults ?? []
+    : apiListQuery.data?.results ?? []
 
   const isInitialLoading = hasActiveFilters
     ? isFilteredLoading && !filteredResults
