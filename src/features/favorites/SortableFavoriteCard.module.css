@@ -1,4 +1,8 @@
 .wrapper {
+  position: relative;
+  bottom: 19px;
+  width: 100%;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   cursor: grab;
   touch-action: none;
 }
