@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useToast } from '../../components/toasts/ToastContext'
+import { useToast } from '../../components/toasts/useToast'
 import { addFavorite, removeFavorite, MAX_FAVORITES } from './favoritesSlice'
 import styles from './FavoriteButton.module.css'
 

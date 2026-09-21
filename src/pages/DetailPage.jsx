@@ -1,16 +1,29 @@
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useGetPokemonDetailQuery } from '../features/pokemon/pokemonApi'
 import TypeBadgeList from '../features/pokemon/TypeBadgeList'
 import StatsBar from '../features/pokemon/StatBars'
 import styles from './DetailPage.module.css'
 import Button from '../components/shared/Button'
-import { useEffect } from 'react'
 
 function DetailPage() {
   const { name } = useParams()
   const { data, isLoading, isError, refetch, fulfilledTimeStamp } = useGetPokemonDetailQuery(name)
+  const [now, setNow] = useState(() => Date.now())
 
-  const isFreshData = fulfilledTimeStamp && Date.now() - fulfilledTimeStamp < 1000
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setNow(Date.now())
+    }, 1000)
+
+    return () => clearInterval(intervalId)
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const isFreshData = fulfilledTimeStamp && now - fulfilledTimeStamp < 1000
 
   if (isError) {
     return (
@@ -29,10 +42,6 @@ function DetailPage() {
     data.sprites.back_default,
     data.sprites.back_shiny,
   ].filter(Boolean)
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   return (
     <div className={styles.page}>

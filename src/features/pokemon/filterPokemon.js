@@ -9,7 +9,7 @@
  */
 export function combinePokemonSources({ typeList, generationList, search, allPokemonList }) {
   // Base list with type & generation combined
-  let baseList = null;
+  let baseList;
 
   if (typeList && generationList) {
     const generationNames = new Set(generationList.map((p) => p.name));
