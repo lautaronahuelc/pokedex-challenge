@@ -20,7 +20,7 @@ function SearchBar() {
     }, DEBOUNCE_MS)
 
     return () => clearTimeout(timeoutId)
-  }, [inputValue])
+  }, [inputValue, searchParams, setSearchParams])
 
   return (
     <input

@@ -1,4 +1,4 @@
-import { useToast } from './ToastContext'
+import { useToast } from './useToast'
 import styles from './ToastContainer.module.css'
 
 function ToastContainer() {

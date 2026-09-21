@@ -32,7 +32,12 @@ function HomePage() {
   const apiListQuery = useGetPokemonListQuery(apiPage, { skip: hasActiveFilters })
 
   // Client-side pagination: when filters are active, we fetch all the filtered results and paginate them in the client.
-  const [clientPage, setClientPage] = useState(0)
+  const filterKey = `${type}|${generation}|${search}`
+  const [clientPagination, setClientPagination] = useState({
+    key: filterKey,
+    page: 0,
+  })
+  const clientPage = clientPagination.key === filterKey ? clientPagination.page : 0
   const typeQuery = useGetPokemonByTypeQuery(type, { skip: !type })
   const generationQuery = useGetPokemonByGenerationQuery(generation, { skip: !generation })
   const searchQuery = useGetAllPokemonNamesQuery(undefined, { skip: !search })
@@ -53,10 +58,6 @@ function HomePage() {
         allPokemonList: search ? searchQuery.data : null,
       })
     : null
-
-  useEffect(() => {
-    setClientPage(0)
-  }, [type, generation, search])
 
   const visibleFilteredResults = filteredResults
     ? paginateClientSide(filteredResults, clientPage, CLIENT_PAGE_SIZE)
@@ -82,7 +83,10 @@ function HomePage() {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !isFetching && canLoadMore) {
         if (hasActiveFilters) {
-          setClientPage((p) => p + 1)
+          setClientPagination((current) => ({
+            key: filterKey,
+            page: (current.key === filterKey ? current.page : 0) + 1,
+          }))
         } else {
           dispatch(nextPage())
         }
@@ -97,6 +101,7 @@ function HomePage() {
     isFetching,
     canLoadMore,
     hasActiveFilters,
+    filterKey,
     itemsToRender.length,
   ])
 
