@@ -35,7 +35,7 @@ function HomePage() {
   const [clientPage, setClientPage] = useState(0)
   const typeQuery = useGetPokemonByTypeQuery(type, { skip: !type })
   const generationQuery = useGetPokemonByGenerationQuery(generation, { skip: !generation })
-  const searchQuery = useGetAllPokemonNamesQuery()
+  const searchQuery = useGetAllPokemonNamesQuery(undefined, { skip: !search })
 
   const typeReady = !type || typeQuery.data !== undefined || typeQuery.isError
   const generationReady = !generation || generationQuery.data !== undefined || generationQuery.isError
