@@ -10,9 +10,8 @@ import {
 import {
   SortableContext,
   rectSortingStrategy,
-  arrayMove,
 } from '@dnd-kit/sortable'
-import { MAX_FAVORITES, reorderFavorites } from '../features/favorites/favoritesSlice'
+import { reorderFavorites } from '../features/favorites/favoritesSlice'
 import SortableFavoriteCard from '../features/favorites/SortableFavoriteCard'
 import styles from './TeamPage.module.css'
 

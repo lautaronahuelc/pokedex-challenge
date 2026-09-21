@@ -40,6 +40,5 @@ export function combinePokemonSources({ typeList, generationList, search, allPok
  * @returns {Array} The paged items.
  */
 export function paginateClientSide(items, page, pageSize) {
-  console.log({page})
   return items.slice(0, (page + 1) * pageSize)
 }
