@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { nextPage } from '../features/pokemon/pageSlice'
@@ -35,7 +35,7 @@ function HomePage() {
   const [clientPage, setClientPage] = useState(0)
   const typeQuery = useGetPokemonByTypeQuery(type, { skip: !type })
   const generationQuery = useGetPokemonByGenerationQuery(generation, { skip: !generation })
-  const searchQuery = useGetAllPokemonNamesQuery()
+  const searchQuery = useGetAllPokemonNamesQuery(undefined, { skip: !search })
 
   const typeReady = !type || typeQuery.data !== undefined || typeQuery.isError
   const generationReady = !generation || generationQuery.data !== undefined || generationQuery.isError
@@ -69,25 +69,19 @@ function HomePage() {
   const isFetching = hasActiveFilters ? isFilteredLoading : apiListQuery.isFetching
   const canLoadMore = hasActiveFilters ? hasMoreFilteredResults : true
     
-  const observerRef = useRef(null)
-  const stateRef = useRef({ isFetching, canLoadMore, hasActiveFilters })
-  useEffect(() => {
-    stateRef.current = { isFetching, canLoadMore, hasActiveFilters }
-  }, [isFetching, canLoadMore, hasActiveFilters])
+  const sentinelRef = useRef(null)
 
-  const sentinelRef = useCallback((node) => {
-    if (observerRef.current) observerRef.current.disconnect()
+  const itemsToRender = hasActiveFilters
+    ? visibleFilteredResults ?? []
+    : apiListQuery.data?.results ?? []
+
+  useEffect(() => {
+    const node = sentinelRef.current
     if (!node) return
 
-    observerRef.current = new IntersectionObserver(([entry]) => {
-      const {
-        isFetching: currentFetching,
-        canLoadMore: currentCanLoadMore,
-        hasActiveFilters: currentHasFilters
-      } = stateRef.current
-
-      if (entry.isIntersecting && !currentFetching && currentCanLoadMore) {
-        if (currentHasFilters) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !isFetching && canLoadMore) {
+        if (hasActiveFilters) {
           setClientPage((p) => p + 1)
         } else {
           dispatch(nextPage())
@@ -95,14 +89,16 @@ function HomePage() {
       }
     })
 
-    observerRef.current.observe(node)
-  },[])
+    observer.observe(node)
 
-  useEffect(() => {
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect()
-    }
-  }, [])
+    return () => observer.disconnect()
+  }, [
+    dispatch,
+    isFetching,
+    canLoadMore,
+    hasActiveFilters,
+    itemsToRender.length,
+  ])
 
   const handleFilterRetry = () => {
     if (typeQuery.isError) typeQuery.refetch()
@@ -113,8 +109,6 @@ function HomePage() {
   const handleApiListRetry = () => {
     apiListQuery.refetch()
   }
-
-  const itemsToRender = hasActiveFilters ? visibleFilteredResults : apiListQuery.data?.results
 
   const isInitialLoading = hasActiveFilters
     ? isFilteredLoading && !filteredResults

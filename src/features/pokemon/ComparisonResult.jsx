@@ -1,12 +1,10 @@
 import { useGetPokemonDetailQuery } from './pokemonApi'
-import TypeBadgeList from './TypeBadgeList'
-import StatBars from './StatBars'
 import styles from './ComparisonResult.module.css'
 import ErrorMessage from '../../components/shared/ErrorMessage'
 import PokemonCard from './PokemonCard'
 
 function ComparisonColumn({ name }) {
-  const { data, isLoading, isError, refetch } = useGetPokemonDetailQuery(name)
+  const { isError, refetch } = useGetPokemonDetailQuery(name)
 
   if (isError) {
     return (

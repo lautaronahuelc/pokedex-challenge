@@ -12,7 +12,6 @@ export const pokemonApi = pokeApi.injectEndpoints({
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
 			providesTags: ['PokemonList'],
-      keepUnusedDataFor: 0, // workaround to avoid infinite scrolling error
     }),
 
 		getPokemonDetail: builder.query({

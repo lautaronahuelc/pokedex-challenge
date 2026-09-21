@@ -8,29 +8,28 @@
  * @returns {Array|null} The combined list of Pokémon or null if no filters are active.
  */
 export function combinePokemonSources({ typeList, generationList, search, allPokemonList }) {
-  let combined = null
+  // Base list with type & generation combined
+  let baseList = null;
 
   if (typeList && generationList) {
-    const generationNames = new Set(generationList.map((p) => p.name))
-    combined = typeList.filter((p) => generationNames.has(p.name))
-  } else if (typeList) {
-    combined = typeList
-  } else if (generationList) {
-    combined = generationList
+    const generationNames = new Set(generationList.map((p) => p.name));
+    baseList = typeList.filter((p) => generationNames.has(p.name));
+  } else {
+    baseList = typeList || generationList;
   }
 
-  // if there is no type or generation filter active and no search term,
-  // in that case, the caller should use the general paginated list instead of this result.
-  if (combined === null && !search) return null
+  if (!baseList && !search) {
+    return null; // The app will use normal pagination
+  }
 
-  if (combined === null && search) {
-    combined = allPokemonList.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
-  } else if (combined !== null && search) {
-    const searchLower = search.toLowerCase()
-    combined = combined.filter((p) => p.name.toLowerCase().includes(searchLower))
-  } 
+  const sourceList = baseList || allPokemonList;
 
-  return combined
+  if (!search) {
+    return sourceList;
+  }
+
+  const searchLower = search.toLowerCase();
+  return sourceList.filter((p) => p.name.toLowerCase().includes(searchLower));
 }
 
 /**

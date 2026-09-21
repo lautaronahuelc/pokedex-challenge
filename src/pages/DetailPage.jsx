@@ -4,6 +4,7 @@ import TypeBadgeList from '../features/pokemon/TypeBadgeList'
 import StatsBar from '../features/pokemon/StatBars'
 import styles from './DetailPage.module.css'
 import Button from '../components/shared/Button'
+import { useEffect } from 'react'
 
 function DetailPage() {
   const { name } = useParams()
@@ -28,6 +29,10 @@ function DetailPage() {
     data.sprites.back_default,
     data.sprites.back_shiny,
   ].filter(Boolean)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className={styles.page}>
