@@ -5,6 +5,7 @@ import { useGetAllPokemonNamesQuery } from '../features/pokemon/pokemonApi'
 import ComparisonResult from '../features/pokemon/ComparisonResult'
 import PokemonCombobox from '../features/pokemon/PokemonCombobox'
 import Button from '../components/shared/Button'
+import ErrorMessage from '../components/shared/ErrorMessage'
 import styles from './ComparePage.module.css'
 
 const compareSchema = Yup.object({
@@ -15,10 +16,22 @@ const compareSchema = Yup.object({
 })
 
 function ComparePage() {
-  const { data: allNames, isLoading } = useGetAllPokemonNamesQuery()
+  const { data: allNames, isLoading, isError, refetch } = useGetAllPokemonNamesQuery()
   const [comparison, setComparison] = useState(null)
 
   if (isLoading) return <p>Cargando catálogo...</p>
+
+  if (isError) {
+    return (
+      <div className={styles.page}>
+        <ErrorMessage
+          title="No pudimos cargar el catálogo"
+          message="No pudimos cargar los nombres de los pokémones para comparar."
+          onRetry={refetch}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>
